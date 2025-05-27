@@ -7,14 +7,13 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const MongoStore = require('connect-mongo')
 const passport = require('passport')
+const doanhnghiepRoutes = require('./routes/DoanhNghiepRoutes')
+const countotpRoutes = require('./routes/CountOtpRoutes')
 
-var path = require('path')
 var app = express()
 app.use(methodOverride('_method'))
-// const uri =
-//   'mongodb://admin:helloadmin@103.90.227.29:27017/webae8?authSource=admin'
 const uri =
-  'mongodb://admin:T4pCC4rDG2mq@194.233.71.174:27017/webae8?authSource=admin'
+  'mongodb://admin:helloadmin@103.90.227.29:27017/webae8?authSource=admin'
 
 mongoose
   .connect(uri, {
@@ -37,7 +36,6 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-
 app.use(
   session({
     secret: 'mysecretkey',
@@ -55,7 +53,8 @@ app.use(passport.session())
 
 app.use(cors())
 
-
+app.use('/', doanhnghiepRoutes)
+app.use('/', countotpRoutes)
 
 app.listen(4020, () => {
   try {
