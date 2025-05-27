@@ -23,7 +23,8 @@ router.post('/postcountotp', async (req, res) => {
 
     const countOtpToday = await CountOtp.countDocuments({
       phone,
-      ngay: { $gte: startOfDay, $lte: endOfDay }
+      ngay: { $gte: startOfDay, $lte: endOfDay },
+      doanhnghiep: doanhnghiep._id
     })
 
     if (countOtpToday >= 5) {
@@ -52,6 +53,7 @@ router.post('/postcountotp', async (req, res) => {
         }
       }
     )
+    console.log(otp, phone)  
 
     if (response.data.status === 'success') {
       const countotp = new CountOtp({
